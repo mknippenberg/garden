@@ -1,0 +1,42 @@
+version: "3.2"
+services:
+# have to start kafka and zookeeper first.
+  eda-zk:
+    image: confluentinc/cp-zookeeper:4.0.2
+    container_name: eda-zk
+    ports:
+      - 2181:2181
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    restart: on-failure:5
+
+  eda-kafka:
+    image: confluentinc/cp-kafka:4.0.2
+    container_name: eda-kafka
+    ports:
+      - 9092:9092
+      - 9093:9093
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: eda-zk:2181
+      KAFKA_ADVERTISED_LISTENERS: SSL://eda-kafka:9092, PLAINTEXT://eda-kafka:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      # SSL
+      KAFKA_SECURITY_INTER_BROKER_PROTOCOL: SSL
+      KAFKA_SSL_PROTOCOL: TLS
+      KAFKA_SSL_KEYSTORE_FILENAME: broker_broker1_server.keystore.jks
+      KAFKA_SSL_KEYSTORE_CREDENTIALS: broker1_keystore_creds
+      KAFKA_SSL_KEY_CREDENTIALS: broker1_sslkey_creds
+      KAFKA_SSL_TRUSTSTORE_FILENAME: broker_broker1_server.truststore.jks
+      KAFKA_SSL_TRUSTSTORE_CREDENTIALS: broker1_truststore_creds
+      # To require authentication of clients use "require", else "none" or "requested"
+      KAFKA_SSL_CLIENT_AUTH: requested
+    depends_on:
+      - eda-zk
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./server-certs:/etc/kafka/secrets
+    restart: on-failure:5
