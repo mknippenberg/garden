@@ -1,5 +1,8 @@
 # Notes
 
+This is mainly a directory to play around with and learn event driven technology.
+
+## Sanity test for kafka and zookeeper
 
 From the EDA directory run:
 

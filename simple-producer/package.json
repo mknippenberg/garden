@@ -1,0 +1,22 @@
+{
+  "name": "simple-producer",
+  "version": "1.0.0",
+  "description": "Simple app to produce messages to kafka",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mknippenberg/garden/tree/master/EDA"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "Mathias Knippenberg",
+  "license": "ISC",
+  "dependencies": {
+    "node-rdkafka": "^2.3.3",
+    "typescript": "^2.6.1"
+  }
+}

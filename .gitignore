@@ -6,6 +6,9 @@ __pycache__/
 # certificates
 server-certs/
 
+# node
+node_modules/
+
 # C extensions
 *.so
 
