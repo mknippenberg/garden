@@ -7,13 +7,14 @@
  * of the MIT license.  See the LICENSE.txt file for details.
  */
 
-import * as Kafka from 'node-rdkafka';
+var kafka = require('node-rdkafka');
 
 var producer = new Kafka.Producer({
-  //'debug' : 'all',
-  'metadata.broker.list': 'localhost:9092',
+  'debug' : 'all',
+  'metadata.broker.list': 'eda-kafka:9093',
   'dr_cb': true  //delivery report callback
 });
+
 
 var topicName = 'test';
 

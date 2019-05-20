@@ -40,3 +40,11 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./server-certs:/etc/kafka/secrets
     restart: on-failure:5
+
+  dev:
+    image: node:11
+    container_name: eda_producer
+    volumes:
+      - ../simple-producer:/usr/src/service
+    working_dir: /usr/src/service
+
